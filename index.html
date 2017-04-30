@@ -13,34 +13,225 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 		<!-- D3.js -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+		<link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+		<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
 		<script src="radarChart.js"></script>	
 		<script src="sitescript.js"></script>
+		
+		
 	</head>
+
+
 	<body>
-		<nav class="navbar navbar-default" style="background-color: #0b0a5d;">
+		<nav class="navbar navbar-default" style="background-color: #286080;">
 			<div class="container-fluid">
 			    <div class="navbar-header">
-			      <a class="navbar-brand" href="#" style="color:white;">Project InfoViz</a>
+			      <a class="navbar-brand" href="http://www.cs.odu.edu/~mkukunooru/Project%20Demo/index.html" style="color:white;">Insights Into American Football</a>
 			    </div>
 			   <!--  <ul class="nav navbar-nav">
 			      <li class="active"><a href="#">Home</a></li>
 			    </ul> -->
 			</div>
 		</nav>
-  
-		<div class="container">
+     	<div id="cover" style="display:none;"></div>
+		<div class="container" id="wholebody">
 			<div class="teams_container row">
-				<div class="teams_usmapplot row well">
-					<h3 class="plotheading">US Map With Teams</h3>
+			
+				<div class="teams_usmapplot row">
+					<!-- <h3 class="plotheading">US Map With Teams</h3> -->
 					<div class="row well outercover_teams_usmapplot">
-					<div class="usmapwithteams"></div>
+						
+
+						<div class="firstcol col-lg-5"> 
+							<!-- this is for team based US plot -->
+							<div class="usmapwithteams" style="margin-left: -26%;"></div>
+							<div class="teamBasedMatchesCover row" style="display:none;">									
+									<div class="row tableHeadingDiv" style="margin-left: 10%">
+										<label class="selectedTeamLabel"> </label> &nbsp; <select class="yearsel_teambased form-group">
+										<option>2016</option>
+										<option>2015</option></select>
+									</div>
+								</div>
+
+							<div class="row matchBasedActualtableDiv">
+								<table class="table teamBasedMatchesCover" style="display:none;" cellspacing="0" width="100%">
+										<thead>
+										    <tr>
+										       <th class='col-xs-3'>RND</th>
+										       <th class='col-xs-6'>Opponent</th>
+										       <th class='col-xs-3'>Result</th>
+										    </tr>
+										</thead>
+										<tbody>							      
+										</tbody>					
+								</table>
+							</div>	
+						</div>		
+
+						 <!-- this is for Player tables-->
+						<div class="topPlayerTableStats secondcol well col-lg-7">
+							<div class="gameLeadersHeader">
+								<label> Game Leaders</label>
+								<select class="yearSelPlayerPerformance"></select>	
+							</div>
+
+							<div class="leadertablegraphCover row"> 
+								<div class="highPassingYards col-lg-5">
+									  <label>Passing Leaders</label>
+									  <table class="table leaderstable table-striped well" purp="QB">
+									  	 <thead>
+									      <tr>
+									        <th>Name</th>
+									        <th>Yards</th>
+									         <th>Team</th>
+									      </tr>
+									    </thead>
+									    <tbody>
+									    </tbody>
+									    <tfoot>
+											<tr>
+										       <td colspan="2"></td><td><button type="button" class="btn btn-primary exploreButt expolrePassingLeader">Explore</button></td>
+										    </tr>
+										</tfoot>
+									  </table>
+								</div>
+								<div class="col-lg-7 playertrends playertrendsQB">
+								</div>								
+							</div>
+							<br/>
+							<div class="leadertablegraphCover row">
+								<div class="highRushingYards col-lg-5">
+								<label>Rushing Leaders</label>
+									  <table class="table leaderstable table-striped well" purp="RB">
+									  	 <thead>
+									      <tr>							   
+									        <th>Name</th>
+									        <th>Yards</th>
+									         <th>Team</th>
+									      </tr>
+									    </thead>
+									    <tbody>
+									    </tbody>
+									    <tfoot>
+											<tr>
+										       <td colspan="2"></td><td><button type="button" class="btn btn-primary exploreButt expolreRushingLeader">Explore</button></td>
+										    </tr>
+										</tfoot>
+									  </table>
+								</div>
+								<div class="col-lg-7 playertrends playertrendsRB">
+								</div>
+							</div>
+							<br/>
+							<div class="leadertablegraphCover row"> 
+								<div class="highReceivingYards col-lg-5">
+									<label>Receiving Leaders</label>
+									  <table class="table leaderstable table-striped well" purp="WR">
+									  	 <thead>
+									      <tr>
+									        <th>Name</th>
+									        <th>Yards</th>
+									         <th>Team</th>
+									      </tr>
+									    </thead>
+									    <tbody>
+									    </tbody>
+									    <tfoot>
+											<tr>
+										       <td colspan="2"></td><td><button type="button" class="btn btn-primary exploreButt expolreReceivingLeader">Explore</button></td>
+										    </tr>
+										</tfoot>
+									  </table>
+								</div>
+								<div class="col-lg-7 playertrends playertrendsWR">
+								</div>
+							</div>
+							
+						</div>	
+
+						<div class="matchBasedStats secondcol col-lg-2" style="display: none;"> 
+						
+								
+								<div class="middlecol well allSmallStats">
+									<div class="matchStatsHeader"> <label class="hometeam"> </label>&nbsp; <b> vs </b>&nbsp;<label class="oppteam"> </label></div>
+									<div class="totalyardscover row well" >
+										<label>Total Yards</label>
+
+										<div class="progressBinder">
+											<div class="homeprogessvallabel"> <h3></h3></div>
+											<div class="progress homeprogress"></div> 
+										</div>
+
+										<div class="progressBinder">
+											<div class="opponentprogressvallabel"> <h3></h3></div>
+											<div class="progress opponentprogress"></div>
+										</div>
+
+
+									</div> 
+
+									<div class="teampossessiondonutcover row well">
+										<label>Possession</label>
+										<div class="teampossessiondonutchart">
+											
+										</div>	
+									</div>
+
+									<div class="firstdownscover row well">
+										<label>First Downs</label>
+
+										<div class="progressBinder">
+											<div class="homeprogessvallabel"> <h3> </h3></div>
+											<div class="progress homeprogress"></div> 
+										</div>
+
+										<div class="progressBinder">
+											<div class="opponentprogressvallabel"> <h3> </h3></div>
+											<div class="progress opponentprogress"></div>
+										</div>
+									</div>
+									<div class="gameleaderscover row well hidden">
+										<label>Game Leaders</label>
+										<div class="player1"></div>
+										<div class="player2"></div>
+										<div class="player3"></div>
+									</div>
+								</div>		
+
+						</div>	
+
+						<div class="teams_quarterwinsloseplot thirdcol col-lg-4" style="display:none; margin-left:8%">
+							<div class="row well outercover_teams_quarterwinsloseplot">
+								
+								<div> <label class="plotheading_line_winslose"> Wins/Lose Stats over the Years</label> </div>
+								<form class="winLoseMatchForm">
+									    <label><input type="radio" name="datasetWinLoseMatch" id="dataset" value="win" checked> Win</label>
+									    <label><input type="radio" name="datasetWinLoseMatch" id="dataset" value="loss">Loss</label>
+								</form>
+								<div class="line_winslose" style="margin-top:5%;"></div>
+								<br />
+								<div> <label class="plotheading_bar_quartertrends"><b class="year">2016 </b> Quarter based wins </label> </div>
+								<div class="bar_quartertrends" style="margin-top:2%;">
+									
+								</div>
+							</div>
+						</div>
+
+						
 					</div>
 				</div>
+
+				<div >  
+				</div>
+
+
 			</div>
 
-			<div class="player_container row">
-				<div class="player_radarplot row well">
-					<h3 class="plotheading">Radar plot </h3>
+			 <!-- this is the container for the, player based data attribures  -->
+			<div class="player_container row" style="display:none;">
+				<div class="player_radarplot row well" id="player_radarplot">
+					<h3 class="plotheading">Compare Players</h3>
 					<div class="row well outercover_player_radarplot">
 						<div class="row topLevelFiltersDiv playerProfileAnalysis" style="margin-top:3%">
 							<div class="yearAndPosSelRow row">
@@ -53,7 +244,7 @@
 								<div class="col-lg-6">
 									<div class="form-group">
 									     <label for="playerProfilePosition">Position:</label>
-									    <select class="posSelPlayerProfile" id="playerProfilePosition"><option>select</option><option>QB</option> <option>WR</option><option>RB</option></select>
+									    <select class="posSelPlayerProfile" id="playerProfilePosition"><option>select</option><option value="QB">Passing</option> <option value="RB">Rushing</option><option value="WR">Receicing</option><option value="D">Defence</option></select>
 								    </div>
 								</div>
 							</div>
@@ -61,37 +252,37 @@
 								<div class="col-lg-3 teamAndPlayerGrp">
 								  <div class="form-group">
 								     <label for="playerTeam">Team:</label>
-								    <select class="playerTeam"> <option>team1</option> <option>team2</option></select>
+								    <select class="playerTeam" curTeam=0> <option>team1</option> <option>team2</option></select>
 								  </div>
 								  <div class="form-group ">
 								     <label for="playerProfilePlayerName">Player:</label>
-								    <select class="playerSelPlayerProfile"> <option>Rich Gannon</option> <option>player2</option></select>
+								    <select class="playerSelPlayerProfile" curplayer=0> <option>Rich Gannon</option> <option>player2</option></select>
 								  </div>
 
 								</div>
 								<div class="col-lg-3 teamAndPlayerGrp">
 								  <div class="form-group">
 									   <label for="playerTeam">Team:</label>
-									  <select class="playerTeam"> <option>team1</option> <option>team2</option></select>
+									  <select class="playerTeam" curTeam=1> <option>team1</option> <option>team2</option></select>
 
 								  </div>
 								  <div class="form-group">
 								     <label for="playerProfilePlayerName">Player:</label>
-								    <select class="playerSelPlayerProfile"> <option>Rich Gannon</option> <option>player2</option></select>
+								    <select class="playerSelPlayerProfile" curplayer=1> <option>Rich Gannon</option> <option>player2</option></select>
 								  </div>
 								</div>
 								<div class="col-lg-3 teamAndPlayerGrp">
 								   <div class="form-group">
 									   <label for="playerTeam">Team:</label>
-									<select class="playerTeam"> <option>team1</option> <option>team2</option></select>
+									<select class="playerTeam" curTeam=2> <option>team1</option> <option>team2</option></select>
 
 								  </div>
 								  <div class="form-group">
 								     <label for="playerProfilePlayerName">Player:</label>
-								    <select class="playerSelPlayerProfile"> <option>Drew Bledsoe</option> <option>player2</option></select>
+								    <select class="playerSelPlayerProfile" curplayer=2> <option>Drew Bledsoe</option> <option>player2</option></select>
 								  </div>
 								</div>
-								<div class="col-lg-3">
+								<!-- <div class="col-lg-3">
 								  <div class="form-group">
 									  <label for="playerTeam">Team:</label>
 									<select class="playerTeam"> <option>team1</option> <option>team2</option></select>
@@ -101,8 +292,10 @@
 								     <label for="playerProfilePlayerName">Player:</label>
 								    <select class="playerSelPlayerProfile"> <option>Drew Bledsoe</option> <option>player2</option></select>
 								  </div>
+								</div> -->
+								<div class="col-lg-3">
+									<button class="btn btn-success comparePlayerButt" style="margin-left: -92%;margin-top: 10%;">Compare</button>
 								</div>
-								<button class="btn btn-success pull-right comparePlayerButt">Compare</button>
 							</div>	
 						</div>
 						
@@ -113,7 +306,5 @@
 		 
 		</div>
 
-
-	
 	</body>
 </html>

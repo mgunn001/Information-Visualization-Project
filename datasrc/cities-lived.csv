@@ -1,33 +1,33 @@
-years,place,lat,lon
-3,Chicago,41.831667,-87.633611
-3,Green Bay,44.504167,-87.983889
-3,Arizona,33.5275,-112.2625
-3,Atlanta,33.739444,-84.389444
-3,Baltimore,39.329444,-76.601389
-3,Buffalo,42.915114,-78.862009
-3,Carolina,35.225833,-80.852778
-3,Cincinnati,39.116667,-84.535278
-3,Cleveland,41.506111,-81.699444
-3,Dallas,32.779722,-96.759722
-3,Denver,39.743889,-105.02
-3,Detroit,42.34,-83.045556
-3,Houston,29.685,-95.407778
-3,Indianapolis,39.760056,-86.163806
-3,Jacksonville,30.323889,-81.6375
-3,Kansas City,39.048889,-94.483889
-3,Miami,25.77805,-80.219808
-3,Minnesota,44.973889,-93.258056
-3,New England,42.0927,-71.267442
-3,New Orleans,29.950833,-90.081111
-3,New York Giants,43.00,-73.958056
-3,New York Jets,40.755556,-73.848056
-3,Oakland,37.794108,-122.263069
-3,Philadelphia,39.993056,-75.155833
-3,Pittsburgh,40.441944,-79.954167
-3,Saint Louis,34.0522,-118.2437
-3,San Diego,32.720833,-117.150556
-3,San Francisco,37.713611,-122.386111
-3,Seattle,47.595278,-122.331667
-3,Tampa,27.975833,-82.503333
-3,Tennessee,35.121111,-89.9775
-3,Washington,38.9175,-77.020278
+teamcode,place,lat,lon
+chi,Chicago Bears,41.831667,-87.633611
+gb,Green Bay Packers,44.504167,-87.983889
+ari,Arizona Cardinals,33.5275,-112.2625
+atl,Atlanta Falcons,33.739444,-84.389444
+bal,Baltimore Ravens,39.329444,-76.601389
+buf,Buffalo Bills,42.915114,-78.862009
+car,Carolina Panthers,35.225833,-80.852778
+cin,Cincinnati Bengals,39.116667,-84.535278
+cle,Cleveland Browns,41.506111,-81.699444
+dal,Dallas Cowboys,32.779722,-96.759722
+den,Denver Broncos,39.743889,-105.02
+det,Detroit Lions,42.34,-83.045556
+hou,Houston Texans,29.685,-95.407778
+ind,Indianapolis Colts,39.760056,-86.163806
+jax,Jacksonville Jaguars,30.323889,-81.6375
+kc,Kansas City Chiefs,39.048889,-94.483889
+mia,Miami Dolphins,25.77805,-80.219808
+min,Minnesota Vikings,44.973889,-93.258056
+ne,New England Patriots,42.0927,-71.267442
+no,New Orleans Saints,29.950833,-90.081111
+nyg,New York Giants,43.00,-73.958056
+nyj,New York Jets,40.755556,-73.848056
+oak,Oakland Raiders,37.794108,-122.263069
+phi,Philadelphia Eagles,39.993056,-75.155833
+pit,Pittsburgh Steelers,40.441944,-79.954167
+la,Los Angeles Rams,34.0522,-118.2437
+sd,San Diego Chargers,32.720833,-117.150556
+sf,San Francisco 49ers,37.713611,-122.386111
+sea,Seattle Seahawks,47.595278,-122.331667
+tb,Tampa Bay Buccaneers,27.975833,-82.503333
+ten,Tennessee Titans,35.121111,-89.9775
+wsh,Washington Redskins,38.9175,-77.020278
