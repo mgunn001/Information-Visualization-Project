@@ -26,6 +26,7 @@ var comingFromAuto = false;
 var curPlayerRowIndex=0;
 var playerPastTenYearsArr;
 var finalArrayTenYears=[];
+var teamsAndCodes;
 
 var curCatTable;
 function start(){
@@ -39,8 +40,8 @@ function start(){
   		//drawLineBarQuarterChart();
 
   	   //populate the select boxes with the teams
-		var teamsAndCodes = { "NFC" : {"dal":"Dallas Cowboys","nyg":"New York Giants","atl":"Atlanta Falcons","sea":"Seattle Seahawks","gb":"Green Bay Packers","det":"Detroit Lions","tb":"Tampa Bay Buccaneers","wsh":"Washington Redskins","min":"Minnesota Vikings","ari":"Arizona Cardinals","no":"New Orleans Saints","car":"Carolina Panthers","phi":"Philadelphia Eagles","la":"Los Angeles Rams","chi":"Chicago Bears","sf":"San Francisco 49ers"},
-		"AFC" :{ "bal":"Baltimore Ravens","buf":"Buffalo Bills", "cin":"Cincinnati Bengals","cle":"Cleveland Browns","den":"Denver Broncos","hou":"Houston Texans","ind":"Indianapolis Colts","jax":"Jacksonville Jaguars","kc":"Kansas City Chiefs","mia":"Miami Dolphins","ne":"New England Patriots","nyj":"New York Jets","oak":"Oakland Raiders","pit":"Pittsburgh Steelers","sd":"San Diego Chargers","ten":"Tennessee Titans"}}
+		teamsAndCodes = { "NFC" : {"dal":"Dallas Cowboys","nyg":"New York Giants","atl":"Atlanta Falcons","sea":"Seattle Seahawks","gb":"Green Bay Packers","det":"Detroit Lions","tb":"Tampa Bay Buccaneers","wsh":"Washington Redskins","min":"Minnesota Vikings","ari":"Arizona Cardinals","no":"New Orleans Saints","car":"Carolina Panthers","phi":"Philadelphia Eagles","lar":"Los Angeles Rams","chi":"Chicago Bears","sf":"San Francisco 49ers"},
+		"AFC" :{ "bal":"Baltimore Ravens","buf":"Buffalo Bills", "cin":"Cincinnati Bengals","cle":"Cleveland Browns","den":"Denver Broncos","hou":"Houston Texans","ind":"Indianapolis Colts","jax":"Jacksonville Jaguars","kc":"Kansas City Chiefs","mia":"Miami Dolphins","ne":"New England Patriots","nyj":"New York Jets","oak":"Oakland Raiders","pit":"Pittsburgh Steelers","lac":"San Diego Chargers","ten":"Tennessee Titans"}}
 
 		var teamSelOptStr="";+6
 		Object.keys(teamsAndCodes["NFC"]).forEach(function(teamCode){
@@ -124,7 +125,22 @@ function start(){
 	        $(this).addClass('row_selected');
 	   
 	        $(".hometeam").html($(".selectedTeamLabel").html()).css("color",teamColors[0]);
-	         $(".oppteam").html($(".row_selected").find("td").eq(1).html()).css("color",teamColors[1]);
+
+	       $(".plotheading_line_winslose .teamName").html($(".selectedTeamLabel").html()).css("color",teamColors[0]);
+
+
+
+	        if($(this).find("td").eq(2).html().split("&nbsp;")[0] == "W"){
+	        	$(".matchWinByLabel").html("Won By "+$(".selectedTeamLabel").html()).css("color",teamColors[0]);
+	        }else{
+	        	$(".matchWinByLabel").html("Won By "+$(this).find("td").eq(1).html()).css("color",teamColors[1]);
+	        }
+
+	         $(".oppteam").html($(this).find("td").eq(1).html()).css("color",teamColors[1]);
+
+	         $(".possessionTimingHeader .hometeam").html($.trim($(this).attr("possession").split("-")[0]));		
+	         $(".possessionTimingHeader .oppteam").html($.trim($(this).attr("possession").split("-")[1]));
+
 	        // $(this).css('background-color', "#D6D5C3");
 
 			var donutData = donutDataHelper($(this));	
@@ -137,6 +153,7 @@ function start(){
 		$(document).on("click",".leaderstable tbody tr",function(){
 			$(this).parents(".table").find("tbody .row_selected").removeClass("row_selected");
 			$(this).addClass("row_selected");
+			$(this).parents(".leadertablegraphCover").find(".playertrends").show();
 			//alert("line graph with animation next to the table is appeared shortly");
 			drawRespectiveLineGraphs($(this),$(this).parents("table").attr("purp"), $(this).find("td").eq(0).html());
 
@@ -144,9 +161,13 @@ function start(){
 
 		$(document).on("change",".yearSelPlayerPerformance",function(){
 			$(".yearSelPlayerProfile").val($(this).val());
+			$(".playertrends").hide();
+
 			getYearWiseGameLeaders("QB","highPassingYards");
 			getYearWiseGameLeaders("RB","highRushingYards");
 			getYearWiseGameLeaders("WR","highReceivingYards");	
+
+
 
 		});
 
@@ -166,7 +187,7 @@ function start(){
 
 			$('html, body').animate({
 		        scrollTop: $("#player_radarplot").offset().top
-		    }, 2000);
+		    }, 1000);
 
 				/*$(".teamAndPlayerGrp").each(function(indx,ele){
 					var index = indx;
@@ -184,7 +205,20 @@ function start(){
 		getYearWiseGameLeaders("RB","highRushingYards");
 		getYearWiseGameLeaders("WR","highReceivingYards");
 
-
+	   $('.combinedRFaceted input[type=radio][name=combinedRFaceted]').change(function() {
+	       var value = this.value;
+	        if (value == "nofacet")
+	        {
+	       			$(".combinedRadorPlot").show();
+	       			$(".facetedRadorPlot").hide();
+	        }	
+	        else
+	        {
+	           	$(".combinedRadorPlot").hide();
+	           	$(".facetedRadorPlot").show();
+	        }
+	       
+	    });
 
 
     });
@@ -297,8 +331,15 @@ function getYearWiseGameLeaders(filetype,catergory){
 
 				for(var i=0;i< 3; i++){
 					var player = Object.keys(passingPlayerDic[selectedyear])[i];
+					var teamName="";
 
-					playerTrStr+="<tr team='"+ passingPlayerDic[selectedyear][player]["TEAM"] + "'><td>"+ player +"</td><td>"+passingPlayerDic[selectedyear][player]["YDS"] +"</td><td>"+ passingPlayerDic[selectedyear][player]["TEAM"] +"</td></tr>"; 
+						if(teamsAndCodes["NFC"].hasOwnProperty(passingPlayerDic[selectedyear][player]["TEAM"].toLowerCase())){
+								teamName = teamsAndCodes["NFC"][ passingPlayerDic[selectedyear][player]["TEAM"].toLowerCase()];
+						}else{
+								teamName = teamsAndCodes["AFC"][passingPlayerDic[selectedyear][player]["TEAM"].toLowerCase()];
+						}
+
+					playerTrStr+="<tr team='"+ passingPlayerDic[selectedyear][player]["TEAM"] + "'><td>"+ player +"</td><td>"+passingPlayerDic[selectedyear][player]["YDS"] +"</td><td>"+ teamName +"</td></tr>"; 
 				}
 				$("."+catergory+" tbody").empty();
 				$("."+catergory+" tbody").append(playerTrStr);
@@ -324,8 +365,10 @@ function displayHelperRadiusPlot(){
 
 
 	 	// console.log(maxattrArray);
-		$(".playerSelPlayerProfile").each(function(){
+		$(".playerSelPlayerProfile").each(function(idx){
 			curEle = $(this);
+			$(".playerName"+(idx+1)).html($(this).val());
+
 			var innerObjArr = [];
 				Object.keys(maxattrArray).forEach(function(attrName) {
 					var innerObj ={};
@@ -354,6 +397,13 @@ function displayHelperRadiusPlot(){
 		  color: color
 		};
 
+
+
+
+
+
+
+
 		//Call function to draw the Radar chart
 		RadarChart(".radarChart", dataForPPRador, radarChartOptions);
 
@@ -368,8 +418,8 @@ function drawTeamsOnUSMapGraph(){
 
 	// D3 Projection
 	var projection = d3.geo.albersUsa()
-	.translate([width/2, height/2])    // translate to center of screen
-	.scale([800]);          // scale things down so see entire US
+	.translate([(width/2)+20, height/2])    // translate to center of screen
+	.scale([1000]);          // scale things down so see entire US
 
 	// Define path generator
 	var path = d3.geo.path()               // path generator that will convert GeoJSON to SVG paths
@@ -384,7 +434,7 @@ function drawTeamsOnUSMapGraph(){
 
 	//Create SVG element and append map to the SVG
 	var svg = d3.select(".usmapwithteams")
-	.append("svg")
+	.append("svg").attr("class","usmapsvg")
 	.attr("width", width)
 	.attr("height", height);
 
@@ -447,7 +497,7 @@ function drawTeamsOnUSMapGraph(){
 				svg.selectAll("circle")
 				.data(data)
 				.enter()
-				.append("circle")
+				.append("circle").attr("class","teamdot")
 				.attr("cx", function(d) {
 					return projection([d.lon, d.lat])[0];
 				})
@@ -455,7 +505,7 @@ function drawTeamsOnUSMapGraph(){
 					return projection([d.lon, d.lat])[1];
 				})
 				.attr("r", function(d) {
-					return 5;
+					return 6.5;
 				})
 				.style("fill", "#00448e")	
 				.style("opacity", 0.85)	
@@ -480,6 +530,9 @@ function drawTeamsOnUSMapGraph(){
 				})
 				// onclick               
 				.on("click", function(d) { 
+					
+					$(".usmapsvg .teamdot").css("fill","#00448e");
+					d3.select(this).style("fill","green");
 					$(".topPlayerTableStats").hide();
 					$(".teams_quarterwinsloseplot").show();
 					$(".matchBasedStats").show();
@@ -573,6 +626,14 @@ function drawBarQuarterImpChart(year,winRLoss)
 
     function barQuarterChange(dataset) {
 
+    	var winRLoss = $('.winLoseMatchForm input[type=radio][name=datasetWinLoseMatch]:checked').val();
+    	var axisLable = ""
+    	if(winRLoss =="win" ){
+    		axisLable = "Wins";
+    	}else{
+    		axisLable = "Losses";
+    	}
+
         y.domain(dataset.map(function(d) { return d.label; }));
         x.domain([0, d3.max(dataset, function(d) { return d.value; })]);
 
@@ -586,14 +647,15 @@ function drawBarQuarterImpChart(year,winRLoss)
 
         svg.append("g")
                 .attr("class", "y axis")
-                .call(yAxis)
-                .append("text")
-                .attr("transform", "rotate(0)")
-                .attr("x", 50)
-                .attr("dx", ".1em")
-                .style("text-anchor", "end")
-                .text("Option %");
-
+                .call(yAxis);
+ 		svg.append("text").attr(
+					"transform",
+					"translate(" + (width / 2) + " ," + (height + margin.bottom)
+							+ ")").style("text-anchor", "middle").text("No of " + axisLable);
+				
+		svg.append("text").attr("y",
+				-12).attr("x",  -25 ).attr("dy", "0.3em")
+				.style("text-anchor", "middle").text("Quarters");
 
         var bar = svg.selectAll(".bar")
                 .data(dataset, function(d) { return d.label; });
@@ -633,6 +695,16 @@ function drawBarQuarterImpChart(year,winRLoss)
 
 function drawWinsLoseChart()
 {
+
+	var winRLoss = $('.winLoseMatchForm input[type=radio][name=datasetWinLoseMatch]:checked').val();
+    var axisLable = ""
+    if(winRLoss =="win" ){
+    	axisLable = "Wins";
+    }else{
+    	axisLable = "Losses";
+    }
+
+
     var lineChart= {};
     $(".line_winslose").empty();
     // $(".line_winslose").empty()
@@ -662,6 +734,9 @@ function drawWinsLoseChart()
 	        }
        
     });
+
+
+
 
 
     // var margin = {top: (parseInt(d3.select('body').style('height'), 10)/20), right: (parseInt(d3.select('body').style('width'), 10)/20), bottom: (parseInt(d3.select('body').style('height'), 10)/20), left: (parseInt(d3.select('body').style('width'), 10)/5)},
@@ -711,6 +786,15 @@ function drawWinsLoseChart()
     winLoseChange(dataSetWin);
 
     function winLoseChange(dataset1) {
+    	var winRLoss = $('.winLoseMatchForm input[type=radio][name=datasetWinLoseMatch]:checked').val();
+	    var axisLable = ""
+	    if(winRLoss =="win" ){
+	    	axisLable = "Wins";
+	    }else{
+	    	axisLable = "Losses";
+	    }
+
+
     	console.log(dataset1);
         x.domain(dataset1.map(function(d) { return d.label; }));
         y.domain([0, d3.max(dataset1, function(d) { return d.value; })]);
@@ -726,12 +810,19 @@ function drawWinsLoseChart()
         svg.append("g")
                 .attr("class", "y axis")
                 .call(yAxis)
-                .append("text")
-                .attr("transform", "rotate(0)")
-                .attr("x", 50)
-                .attr("dx", ".1em")
-                .style("text-anchor", "end")
-                .text("Option %");
+                ;
+
+       	$(".line_winslose .axislabel").remove();   
+        svg.append("text").attr("class","axislabel").attr(
+					"transform",
+					"translate(" + (width / 2) + " ," + (height + margin.bottom)
+							+ ")").style("text-anchor", "middle").text("Year");
+				
+		svg.append("text").attr("transform", "rotate(-90)").attr("class","axislabel").attr("y",
+				0 - margin.left+10).attr("x", 0 - (height / 2)).attr("dy", "0.3em")
+				.style("text-anchor", "middle").text("No of "+axisLable);
+
+
 	console.log(dataset1);
         var bar = svg.selectAll(".bar")
                 .data(dataset1);
@@ -1099,6 +1190,7 @@ function drawFirstDowns(matchSel){
 function drawRespectiveLineGraphs(curTr,category,player){
 	
 	var curPlayerTrendEle = curTr.parents(".leadertablegraphCover").find(".playertrends"+category);
+	var curPlayerName = curTr.find("td").eq(0).html()
 	curPlayerTrendEle.empty();
 	console.log(category);
 
@@ -1234,6 +1326,8 @@ function drawRespectiveLineGraphs(curTr,category,player){
 										"top", (d3.event.pageY - 28) + "px");
 							}).on("mouseout", function(d) {
 						tooltip.transition().duration(500).style("opacity", 0);
+
+
 					});
 
 					svg.selectAll("dot").data(finalArrayTenYears).enter().append("circle")
@@ -1287,6 +1381,34 @@ function drawRespectiveLineGraphs(curTr,category,player){
 			svg.append("text").attr("transform", "rotate(-90)").attr("y",
 				0 - margin.left+45).attr("x", 0 - (height / 2)).attr("dy", "0.3em")
 				.style("text-anchor", "middle").text("Yards");
+
+				var legendNames=["","",""];
+
+
+
+
+		   var color=[{"name":"Max in Years","value":" blue"},{"name":curPlayerName,"value":"red"}];
+
+		  var legend = svg.selectAll(".legend")
+		      .data(color)
+		    	.enter().append("g")
+		      .attr("class", "legend")
+		      .attr("transform", function(d, i) {var val=(i*10)-30; return "translate(500," + val + ")"; });
+	
+		  legend.append("rect")
+		      .attr("x", -150)
+		      .attr("width", 10)
+		      .attr("height", 10).style("font-size", "13px")
+		      .style("fill", function(d){
+		    	console.log(d.value); return d.value;
+		      });
+	
+		  legend.append("text")
+		      .attr("x", -155)
+		      .attr("y", 6)
+		      .attr("dy", ".35em")
+		      .style("text-anchor", "end")
+		      .text(function(d) { return d.name; });
 				
 	});		
 }

@@ -32,7 +32,7 @@ div.teams_usmapplot .tooltip {
  	position: absolute;           
 	text-align: center;           
 	width: 60px;                  
-	height: 28px;                 
+	height: 40px;                 
 	padding: 2px;             
 	font: 12px sans-serif;        
 	background: white;   
@@ -53,14 +53,16 @@ div.teams_usmapplot .tooltip {
         stroke: #000;
         shape-rendering: crispEdges;
 }
-.y.axis path {
-        display: none;
-}
+
 
 path { 
     stroke: steelblue;
     stroke-width: 2;
     fill: none;
+}
+.legend {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 60%;
 }
 
 .axis path,
@@ -182,9 +184,12 @@ table tbody tr{
  .allSmallStats{
     width:154% !important;
  }
+.matchStatsHeader{  
+    width:154% !important;
+}
 
  .progress{
-    width: 86%;
+    width: 265px !important;
  }
 
  .homeprogessvallabel{
@@ -192,7 +197,8 @@ table tbody tr{
     float: right;
     height: 3%;
     color: #a8a8a8;
-    margin-top: -8%;
+        margin-top: -7%;
+    margin-right: 11%;
  }
 
  .opponentprogressvallabel{
@@ -200,7 +206,8 @@ table tbody tr{
     float: right;
     height: 3%;
     color: #02244a;
-    margin-top: -8%;
+       margin-top: -7%;
+    margin-right: 11%;
  }
 
  #cover {
@@ -228,3 +235,33 @@ table tbody tr{
 .leadertablegraphCover label{
         margin-left: -63%;
 }
+
+.radarChartLegend li{
+     list-style-type: none;
+}
+
+.radarChartLegend div{
+    margin-left: 30%;
+    margin-top: -5.5%;
+}
+
+.teamdot{
+    cursor: pointer;
+}
+
+
+.homePossessionTiming{
+    margin-left: -3%;
+    position: absolute;
+    top: 50%;
+}
+
+.oppositionPossessionTiming{
+   
+    margin-left: -36%;
+    position: absolute;
+    top: 50%;
+}
+
+
+

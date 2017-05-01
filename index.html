@@ -45,10 +45,11 @@
 
 						<div class="firstcol col-lg-5"> 
 							<!-- this is for team based US plot -->
-							<div class="usmapwithteams" style="margin-left: -26%;"></div>
+							<div class="usmapheader"><label style="font-size: x-large; margin-top:5%;">NFL Teams Map</label></div>
+							<div class="usmapwithteams" style="margin-left: -21%; margin-top:-8%"></div>
 							<div class="teamBasedMatchesCover row" style="display:none;">									
 									<div class="row tableHeadingDiv" style="margin-left: 10%">
-										<label class="selectedTeamLabel"> </label> &nbsp; <select class="yearsel_teambased form-group">
+									<label> Matches played by 	<label class="selectedTeamLabel" style="font-size: larger;"> </label> </label> &nbsp; <select class="yearsel_teambased form-group">
 										<option>2016</option>
 										<option>2015</option></select>
 									</div>
@@ -151,12 +152,15 @@
 						</div>	
 
 						<div class="matchBasedStats secondcol col-lg-2" style="display: none;"> 
-						
+	
+								<div class="matchStatsHeader" > <label style="color:black;"> Game Stats </label>&nbsp;<label class="hometeam"> </label>&nbsp; <b> vs </b>&nbsp;<label class="oppteam"> </label> </div>
 								
-								<div class="middlecol well allSmallStats">
-									<div class="matchStatsHeader"> <label class="hometeam"> </label>&nbsp; <b> vs </b>&nbsp;<label class="oppteam"> </label></div>
+								<div class="middlecol well allSmallStats">	
+
+								<div class="matchWinByHeader row"> <label class="matchWinByLabel"> </label></div>
+
 									<div class="totalyardscover row well" >
-										<label>Total Yards</label>
+										<label style="color:black;">Total Yards</label>
 
 										<div class="progressBinder">
 											<div class="homeprogessvallabel"> <h3></h3></div>
@@ -172,14 +176,19 @@
 									</div> 
 
 									<div class="teampossessiondonutcover row well">
-										<label>Possession</label>
+										<label style="color:black;">Possession</label>
+
+										<div class="possessionTimingHeader">
+											<label class="oppteam oppositionPossessionTiming"> </label> 	<label class="hometeam homePossessionTiming"> </label>
+										</div>
+
 										<div class="teampossessiondonutchart">
 											
 										</div>	
 									</div>
 
 									<div class="firstdownscover row well">
-										<label>First Downs</label>
+										<label style="color:black;">First Downs</label>
 
 										<div class="progressBinder">
 											<div class="homeprogessvallabel"> <h3> </h3></div>
@@ -204,7 +213,7 @@
 						<div class="teams_quarterwinsloseplot thirdcol col-lg-4" style="display:none; margin-left:8%">
 							<div class="row well outercover_teams_quarterwinsloseplot">
 								
-								<div> <label class="plotheading_line_winslose"> Wins/Lose Stats over the Years</label> </div>
+								<div> <label class="plotheading_line_winslose"> Wins/Lose Stats of <label class="teamName"> </label> over the Years</label> </div>
 								<form class="winLoseMatchForm">
 									    <label><input type="radio" name="datasetWinLoseMatch" id="dataset" value="win" checked> Win</label>
 									    <label><input type="radio" name="datasetWinLoseMatch" id="dataset" value="loss">Loss</label>
@@ -298,8 +307,30 @@
 								</div>
 							</div>	
 						</div>
-						
-						<div class="radarChart"></div>
+						<div class="combinedRFaceted">
+								<form class="combinedRFacetedForm" style="display:none;">
+									    <label><input type="radio" name="combinedRFaceted" id="noFacet" value="nofacet" checked=""> Combined</label>
+									    <label><input type="radio" name="combinedRFaceted" id="faceted" value="facet">Individual</label>
+								</form> 
+						</div>
+
+						<div class="combinedRadorPlot row" >
+							<div class="radarChart col-lg-8"></div>
+							<div class="radarChartLegend col-lg-4" style="margin-left:-27%;margin-top: 5%;">
+								<ul>
+									<li><label class="playerName playerName1"></label><div style="width:8px;height:8px;background:#edc951;"></div></li>
+									<li><label class="playerName playerName2"></label><div style="width:8px;height:8px; background:#cc333f;"></div></li>
+									<li><label class="playerName playerName3"></label><div style="width:8px;height:8px;background:#00a0b0;"></div></li>
+								</ul>
+							</div>
+						</div>
+
+						<div class="facetedRadorPlot row" style="display:none;">
+							<div class="radarChart1  col-lg-4"></div>
+							<div class="radarChart2 col-lg-4"></div>
+							<div class="radarChart3 col-lg-4"></div>
+						</div>
+
 					</div>
 				</div>
 			</div>

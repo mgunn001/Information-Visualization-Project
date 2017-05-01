@@ -4,8 +4,26 @@
 ////////////////// VisualCinnamon.com ///////////////////
 /////////// Inspired by the code of alangrafu ///////////
 /////////////////////////////////////////////////////////
+
+var attrDic = { "QB" : {"COMP":"Pass Completions","RATE":"Passer Rating","TD":"Touchdown Passes","YDS":"Passing Yards","YDS/G":"Yards/Game","ATT":"Pass Attempts"},
+"RB" : {"ATT":"Rushing attempts","YDS/G":"Rushing yards per game","YDS":"Rushing yards","20+":"Carries over 20 yards","TD":"Rushing touchdowns","1DN":"Rushing first downs"},
+"WR" : {"YDS":"Receiving yards","AVG":" Average yards per reception","TD":"Receiving touchdowns","20+":" Receptions of 20+ yards","YDS/G":"Receiving Yards/Game","1DN":"Receiving First Downs"},
+"D"  : {"COMB":"Tackles","AST":"Assists","SACK":"Sacks","FF":"Fumbles Forced","INT":"Interceptions"}};
+
+
+
+
 	
 function RadarChart(id, data, options) {
+
+	var isFaceted = 0;
+	 if($('.combinedRFaceted input[type=radio][name=combinedRFaceted]:checked').val() == "nofacet"){
+	 	isFaceted =0;
+	 }else{
+	 	isFaceted =1;
+	 }
+		
+
 	var cfg = {
 	 w: 600,				//Width of the circle
 	 h: 600,				//Height of the circle
@@ -130,8 +148,8 @@ function RadarChart(id, data, options) {
 		.attr("x", function(d, i){ return rScale(maxValue * cfg.labelFactor) * Math.cos(angleSlice*i - Math.PI/2); })
 		.attr("y", function(d, i){ return rScale(maxValue * cfg.labelFactor) * Math.sin(angleSlice*i - Math.PI/2); })
 		.text(function(d){
-			
-			var dispStr = d.split("-")[0]+"( "+d.split("-")[1]+" )";
+			var selected = $(".posSelPlayerProfile").val();
+			var dispStr = attrDic[selected][d.split("-")[0]]+"("+d.split("-")[1]+")";
 			return dispStr ;
 		})
 		.call(wrap, cfg.wrapWidth);
@@ -241,6 +259,30 @@ function RadarChart(id, data, options) {
 		.attr("class", "tooltip")
 		.style("opacity", 0);
 	
+		// var legendNames=["","",""];
+		// var color=[{"name":"Min","value":"#000000"},{"name":"Max","value":"#ffa500"}];
+
+		//   var legend = g.selectAll(".legend")
+		//       .data(color)
+		//     	.enter().append("g")
+		//       .attr("class", "legend")
+		//       .attr("transform", function(d, i) {var val=(i*10)-30; return "translate(500," + val + ")"; });
+	
+		//   legend.append("rect")
+		//       .attr("x", -150)
+		//       .attr("width", 10)
+		//       .attr("height", 10)
+		//       .style("fill", function(d){
+		//     	console.log(d.value); return d.value;
+		//       });
+	
+		//   legend.append("text")
+		//       .attr("x", -155)
+		//       .attr("y", 6)
+		//       .attr("dy", ".35em")
+		//       .style("text-anchor", "end")
+		//       .text(function(d) { return d.name; });
+
 	/////////////////////////////////////////////////////////
 	/////////////////// Helper Function /////////////////////
 	/////////////////////////////////////////////////////////
