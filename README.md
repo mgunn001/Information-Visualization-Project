@@ -1,4 +1,4 @@
-### Information-Visualization-Project
+### Insights Into American Football
 
 This was done as a project to visualize 10 years of NFL data for Information Visualization course. 
 
