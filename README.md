@@ -2,6 +2,8 @@
 
 This was done as a project to visualize 10 years of NFL data for Information Visualization course. 
 
+**Following is the link explaining the features of the project - https://www.youtube.com/watch?v=Czk-t-DcLIs&feature=youtu.be**
+
 ### Data Collection
 The data for the project is obtained by scraping the ESPN site for all the teams in the last 10 seasons. Getting the data itself is a huge 
 task as we should crawl through a lot of pages to get individual player statistics, team stats and the details of each game. BeautifulSoup 
