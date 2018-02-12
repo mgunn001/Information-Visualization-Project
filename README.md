@@ -2,7 +2,7 @@
 
 This was done as a project to visualize 10 years of NFL data for Information Visualization course. 
 
-**Following is the link explaining the features of the project - https://www.youtube.com/watch?v=Czk-t-DcLIs&feature=youtu.be**
+**Following is the link explaining the features of the project - [Video](https://www.youtube.com/watch?v=Czk-t-DcLIs&feature=youtu.be)**
 
 **Click on the following link for [LiveDemo](http://qav2.cs.odu.edu/projects/Infovis/index.html)**
 
